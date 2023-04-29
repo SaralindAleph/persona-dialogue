@@ -19,11 +19,11 @@ model_name_or_path = f"""models/{args.model_name}"""
 device_map = "auto"
 
 # an error will be raised while using AutoModel.from_pretrained, maybe someone could help fix this
-if "gpt-j" or "pygmalion" or "opt" or "galactica" in model_name_or_path.lower():
+if "gpt-j" or "pygmalion" or "opt" in model_name_or_path.lower():
     model = AutoModelForCausalLM.from_pretrained(model_name_or_path, load_in_8bit=True, device_map=device_map)
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-elif "pythia" in model_name_or_path.lower():
-    model = GPTNeoXForCausalLM.from_pretrained(model_name_or_path, load_in_8bit=True, device_map=device_map)
+elif "chatglm" in model_name_or_path.lower():
+    model = AutoModel.from_pretrained(model_name_or_path, load_in_8bit=True, device_map=device_map)
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
 else:
     model = LlamaForCausalLM.from_pretrained(model_name_or_path, load_in_8bit=True, device_map=device_map)
